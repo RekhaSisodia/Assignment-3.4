@@ -1,0 +1,25 @@
+Assignment 3.4
+
+Ques1. Import the Titanic Dataset from the link Titanic Data Set.
+Perform the following:
+a. Preprocess the Passanger Names to come up with a list of titles that represent families and represent using appropriate visualization graph.
+b. Represent the proportion of people survived from the family size using a graph.
+c. Impute the missing values in Age variable using Mice Library, create two different graphs showing Age distribution before and after imputation.
+   library(mice)
+   library(ggplot2)
+   library(Amelia)
+   Titanic$age<-as.factor(Titanic$age)
+   missmap(Titanic[-1],col=c("Red","Royal Blue"),y.cex=0.5,x.cex=0.8)   # Graph before the imputation of missing value
+
+   # Imputation of missing values
+   library(ggplot2)
+   library(mice)
+   library(Amelia)
+   Titanic[is.na(Titanic$age),]# quite many rows as suggested above
+   Titanic$age[which(is.na(Titanic$age))] <- mean(Titanic$age,na.rm = TRUE)
+   Titanic[is.na(Titanic$age),] # "na" values have been replaces by mean of rest of the values
+   View(Titanic)
+
+   ggplot(Titanic,aes(x=0.8,y=0.5))+
+   geom_boxplot(fill="Red",color="Blue")        #Graph after the imputation of missing values
+
